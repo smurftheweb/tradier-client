@@ -5,99 +5,99 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 
 chai.use(sinonChai);
- 
+
 describe('Tradier', () => {
 
   describe('#constructor()', () => {
     it('requires one string argument', () => {
       () => {
         expect(new Tradier()).to.throw(Error);
-      }
+      };
       () => {
         expect(new Tradier(123422).to.throw(Error));
-      }
+      };
       () => {
         expect(new Tradier('ibuwwe', 'cbiccwc').to.throw(Error));
-      }
+      };
       () => {
         expect(new Tradier('3c9h9fh8h2f92c8c2' + 3927329).to.not.throw(Error));
-      }
+      };
     });
   });
 
   describe('methods', () => {
-    let tradier; 
+    let tradier;
 
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
     });
 
-    it('should respond to quote', () => { 
+    it('should respond to quote', () => {
       expect(tradier).to.respondTo('quote');
     });
-    it('should respond to timesales', () => { 
+    it('should respond to timesales', () => {
       expect(tradier).to.respondTo('timesales');
     });
-    it('should respond to optionchain', () => { 
+    it('should respond to optionchain', () => {
       expect(tradier).to.respondTo('optionchain');
     });
-    it('should respond to optionstrikes', () => { 
+    it('should respond to optionstrikes', () => {
       expect(tradier).to.respondTo('optionstrikes');
     });
-    it('should respond to optionexpirations', () => { 
+    it('should respond to optionexpirations', () => {
       expect(tradier).to.respondTo('optionexpirations');
     });
-    it('should respond to historical', () => { 
+    it('should respond to historical', () => {
       expect(tradier).to.respondTo('historical');
     });
-    it('should respond to intradaystatus', () => { 
+    it('should respond to intradaystatus', () => {
       expect(tradier).to.respondTo('intradaystatus');
     });
-    it('should respond to marketcalendar', () => { 
+    it('should respond to marketcalendar', () => {
       expect(tradier).to.respondTo('marketcalendar');
     });
-    it('should respond to companysearch', () => { 
+    it('should respond to companysearch', () => {
       expect(tradier).to.respondTo('companysearch');
     });
-    it('should respond to getCompanyInfo', () => { 
+    it('should respond to getCompanyInfo', () => {
       expect(tradier).to.respondTo('getCompanyInfo');
     });
-    it('should respond to getCorporateCalendar', () => { 
+    it('should respond to getCorporateCalendar', () => {
       expect(tradier).to.respondTo('getCorporateCalendar');
     });
-    it('should respond to getDividendInfo', () => { 
+    it('should respond to getDividendInfo', () => {
       expect(tradier).to.respondTo('getDividendInfo');
     });
-    it('should respond to getCorporateActions', () => { 
+    it('should respond to getCorporateActions', () => {
       expect(tradier).to.respondTo('getCorporateActions');
     });
-    it('should respond to getRatios', () => { 
+    it('should respond to getRatios', () => {
       expect(tradier).to.respondTo('getRatios');
     });
-    it('should respond to getCorporateFinancials', () => { 
+    it('should respond to getCorporateFinancials', () => {
       expect(tradier).to.respondTo('getCorporateFinancials');
     });
-    it('should respond to getPriceStats', () => { 
+    it('should respond to getPriceStats', () => {
       expect(tradier).to.respondTo('getPriceStats');
     });
-    it('should respond to _throw', () => { 
+    it('should respond to _throw', () => {
       expect(tradier).to.respondTo('_throw');
     });
   });
 
   describe('#quote()', () => {
-    let tradier; 
+    let tradier;
     let quote;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
       quote = tradier.quote;
     });
     it('is a function', () => {
-      assert.isFunction(quote)
-    })
+      assert.isFunction(quote);
+    });
   });
   describe('#timesales()', () => {
-    let tradier; 
+    let tradier;
     let timesales;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -109,7 +109,7 @@ describe('Tradier', () => {
   });
 
   describe('#optionchain()', () => {
-    let tradier; 
+    let tradier;
     let optionchain;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -121,7 +121,7 @@ describe('Tradier', () => {
   });
 
   describe('#optionstrikes()', () => {
-    let tradier; 
+    let tradier;
     let optionstrikes;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -133,7 +133,7 @@ describe('Tradier', () => {
   });
 
   describe('#optionexpirations()', () => {
-    let tradier; 
+    let tradier;
     let optionexpirations;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -145,7 +145,7 @@ describe('Tradier', () => {
   });
 
   describe('#historical()', () => {
-    let tradier; 
+    let tradier;
     let historical;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -153,11 +153,11 @@ describe('Tradier', () => {
     });
     it('is a function', () => {
       assert.isFunction(historical)
-    })
+    });
   });
 
   describe('#intradaystatus()', () => {
-    let tradier; 
+    let tradier;
     let intradaystatus;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -169,7 +169,7 @@ describe('Tradier', () => {
   });
 
   describe('#marketcalendar()', () => {
-    let tradier; 
+    let tradier;
     let marketcalendar;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -181,7 +181,7 @@ describe('Tradier', () => {
   });
 
   describe('#companysearch()', () => {
-    let tradier; 
+    let tradier;
     let companysearch;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -193,7 +193,7 @@ describe('Tradier', () => {
   });
 
   describe('#getCompanyInfo()', () => {
-    let tradier; 
+    let tradier;
     let getCompanyInfo;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -205,7 +205,7 @@ describe('Tradier', () => {
   });
 
   describe('#getCorporateCalendar()', () => {
-    let tradier; 
+    let tradier;
     let getCorporateCalendar;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -217,7 +217,7 @@ describe('Tradier', () => {
   });
 
   describe('#getDividendInfo()', () => {
-    let tradier; 
+    let tradier;
     let getDividendInfo;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -229,7 +229,7 @@ describe('Tradier', () => {
   });
 
   describe('#getCorporateActions()', () => {
-    let tradier; 
+    let tradier;
     let getCorporateActions;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -241,7 +241,7 @@ describe('Tradier', () => {
   });
 
   describe('#getRatios()', () => {
-    let tradier; 
+    let tradier;
     let getRatios;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -253,7 +253,7 @@ describe('Tradier', () => {
   });
 
   describe('#getCorporateFinancials()', () => {
-    let tradier; 
+    let tradier;
     let getCorporateFinancials;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -265,7 +265,7 @@ describe('Tradier', () => {
   });
 
   describe('#getPriceStats()', () => {
-    let tradier; 
+    let tradier;
     let getPriceStats;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -277,7 +277,7 @@ describe('Tradier', () => {
   });
 
   describe('#_throw()', () => {
-    let tradier; 
+    let tradier;
     let _throw;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
@@ -292,22 +292,22 @@ describe('Tradier', () => {
     let tradier;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
-      axios.get = sinon.spy(() => Promise.resolve({data:{}}));
+      tradier._axios.get = sinon.spy(() => Promise.resolve({ data: {} }));
     });
     it('is a function', () => {
-      assert.isFunction(tradier.lookup)
+      assert.isFunction(tradier.lookup);
     });
     it('fetch with q', () => {
-      tradier.lookup({q: 'MSFT'});
-      expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?q=MSFT`);
+      tradier.lookup({ q: 'MSFT' });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/lookup?q=MSFT`);
     });
     it('fetch with exchanges', () => {
-      tradier.lookup({exchanges: ['N', 'V']});
-      expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?exchanges=N,V`);
+      tradier.lookup({ exchanges: ['N', 'V'] });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/lookup?exchanges=N,V`);
     });
     it('fetch with types', () => {
-      tradier.lookup({types: ['stock', 'etf']});
-      expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?types=stock,etf`);
+      tradier.lookup({ types: ['stock', 'etf'] });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/lookup?types=stock,etf`);
     });
     it('fetch with q, exchanges and types', () => {
       tradier.lookup({
@@ -315,8 +315,8 @@ describe('Tradier', () => {
         q: 'MSFT',
         exchanges: ['N', 'V']
       });
-      expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?q=MSFT&exchanges=N,V&types=stock,etf`);
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/lookup?q=MSFT&exchanges=N,V&types=stock,etf`);
     });
-});
+  });
 
 });

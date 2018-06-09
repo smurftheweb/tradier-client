@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class Tradier {
-  constructor(accesstoken, _endpoint='') {
+  constructor(accesstoken, _endpoint = '') {
     this.accesstoken = accesstoken;
     this._endpoint = _endpoint.toLowerCase();
     this._host = 'https://api.tradier.com/v1/';
@@ -13,14 +13,28 @@ class Tradier {
     if (this._endpoint === 'sandbox') {
       this._host = 'https://sandbox.tradier.com/v1/';
     }
-  }
 
-  quote(ticker) {
-    return axios.get(`${this._host}markets/quotes?symbols=${ticker}`, {
+    // create an axios instance
+    this._axios = axios.create({
+      baseURL: this._host,
+      timeout: 1000,
       headers: {
         "Authorization": `Bearer ${this.accesstoken}`
       }
-    })
+    });
+
+    // and one for the beta endpoints
+    this._axiosBeta = axios.create({
+      baseURL: this._hostBeta,
+      timeout: 1000,
+      headers: {
+        "Authorization": `Bearer ${this.accesstoken}`
+      }
+    });
+  }
+
+  quote(ticker) {
+    return this._axios.get(`markets/quotes?symbols=${ticker}`)
       .then(response => {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {
@@ -37,12 +51,8 @@ class Tradier {
       });
   }
 
-  timesales(ticker) { 
-    return axios.get(`${this._host}markets/timesales?symbol=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+  timesales(ticker) {
+    return this._axios.get(`markets/timesales?symbol=${ticker}`)
       .then(response => {
         const { series } = response.data;
         return new Promise((resolve, reject) => {
@@ -59,12 +69,8 @@ class Tradier {
       });
   }
 
-  optionchain(ticker, expiration) { 
-    return axios.get(`${this._host}markets/options/chains?symbol=${ticker}&expiration=${expiration} `, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+  optionchain(ticker, expiration) {
+    return this._axios.get(`markets/options/chains?symbol=${ticker}&expiration=${expiration}`)
       .then(response => {
         const { options } = response.data;
         return new Promise((resolve, reject) => {
@@ -81,12 +87,8 @@ class Tradier {
       });
   }
 
-  optionstrikes(ticker, expiration) { 
-    return axios.get(`${this._host}markets/options/strikes?symbol=${ticker}&expiration=${expiration}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+  optionstrikes(ticker, expiration) {
+    return this._axios.get(`markets/options/strikes?symbol=${ticker}&expiration=${expiration}`)
       .then(response => {
         const { strikes } = response.data;
         return new Promise((resolve, reject) => {
@@ -103,12 +105,8 @@ class Tradier {
       });
   }
 
-  optionexpirations(ticker) { 
-    return axios.get(`${this._host}markets/options/expirations?symbol=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+  optionexpirations(ticker) {
+    return this._axios.get(`markets/options/expirations?symbol=${ticker}`)
       .then(response => {
         const { expirations } = response.data;
         return new Promise((resolve, reject) => {
@@ -125,17 +123,13 @@ class Tradier {
       });
   }
 
-  historical(ticker) { 
-    return axios.get(`${this._host}markets/history?symbol=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+  historical(ticker) {
+    return this._axios.get(`markets/history?symbol=${ticker}`)
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {
           if (history) {
-            resolve(history)
+            resolve(history);
           } else {
             let error = new Error();
             reject(error);
@@ -147,12 +141,9 @@ class Tradier {
       });
   }
 
+
   intradaystatus() {
-    return axios.get(`${this._host}markets/clock`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axios.get(`markets/clock`)
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
@@ -170,11 +161,7 @@ class Tradier {
   }
 
   marketcalendar() {
-    return axios.get(`${this._host}markets/calendar`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axios.get(`markets/calendar`)
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
@@ -192,11 +179,7 @@ class Tradier {
   }
 
   companysearch(ticker) {
-    return axios.get(`${this._host}markets/search?q=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axios.get(`markets/search?q=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -214,11 +197,8 @@ class Tradier {
   }
 
   getCompanyInfo(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/company?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    // we use a separate axios, as we need the beta endpoint
+    return this._axiosBeta.get(`markets/fundamentals/company?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -236,11 +216,7 @@ class Tradier {
   }
 
   getCorporateCalendar(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/calendars?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/calendars?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -258,11 +234,7 @@ class Tradier {
   }
 
   getDividendInfo(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/dividends?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/dividends?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -280,11 +252,7 @@ class Tradier {
   }
 
   getCorporateActions(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/corporate_actions?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/corporate_actions?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -302,11 +270,7 @@ class Tradier {
   }
 
   getRatios(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/ratios?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/ratios?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -324,11 +288,7 @@ class Tradier {
   }
 
   getCorporateFinancials(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/financials?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/financials?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -346,11 +306,7 @@ class Tradier {
   }
 
   getPriceStats(ticker) {
-    return axios.get(`${this._hostBeta}markets/fundamentals/statistics?symbols=${ticker}`, { 
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}` 
-      } 
-    })
+    return this._axiosBeta.get(`markets/fundamentals/statistics?symbols=${ticker}`)
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -382,18 +338,14 @@ class Tradier {
       exchanges: [],
       types: [],
     }, queryParams);
-    const {q, exchanges, types} = params;
+    const { q, exchanges, types } = params;
     const filteredQuery = [
       q !== null && `q=${q}` || null,
       exchanges.length !== 0 && `exchanges=${exchanges.join(',')}` || null,
       types.length !== 0 && `types=${types.join(',')}` || null,
     ];
-    const query = filteredQuery.filter( q => q !== null).join('&');
-    return axios.get(`${this._host}markets/lookup?${query}`, {
-      headers: {
-        "Authorization": `Bearer ${this.accesstoken}`
-      }
-    })
+    const query = filteredQuery.filter(q => q !== null).join('&');
+    return this._axios.get(`markets/lookup?${query}`)
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {

@@ -27,16 +27,30 @@ var Tradier = function () {
     if (this._endpoint === 'sandbox') {
       this._host = 'https://sandbox.tradier.com/v1/';
     }
+
+    // create an axios instance
+    this._axios = _axios2.default.create({
+      baseURL: this._host,
+      timeout: 1000,
+      headers: {
+        "Authorization": 'Bearer ' + this.accesstoken
+      }
+    });
+
+    // and one for the beta endpoints
+    this._axiosBeta = _axios2.default.create({
+      baseURL: this._hostBeta,
+      timeout: 1000,
+      headers: {
+        "Authorization": 'Bearer ' + this.accesstoken
+      }
+    });
   }
 
   _createClass(Tradier, [{
     key: 'quote',
     value: function quote(ticker) {
-      return _axios2.default.get(this._host + 'markets/quotes?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/quotes?symbols=' + ticker).then(function (response) {
         var quotes = response.data.quotes;
 
         return new Promise(function (resolve, reject) {
@@ -54,11 +68,7 @@ var Tradier = function () {
   }, {
     key: 'timesales',
     value: function timesales(ticker) {
-      return _axios2.default.get(this._host + 'markets/timesales?symbol=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/timesales?symbol=' + ticker).then(function (response) {
         var series = response.data.series;
 
         return new Promise(function (resolve, reject) {
@@ -76,11 +86,7 @@ var Tradier = function () {
   }, {
     key: 'optionchain',
     value: function optionchain(ticker, expiration) {
-      return _axios2.default.get(this._host + 'markets/options/chains?symbol=' + ticker + '&expiration=' + expiration + ' ', {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/options/chains?symbol=' + ticker + '&expiration=' + expiration).then(function (response) {
         var options = response.data.options;
 
         return new Promise(function (resolve, reject) {
@@ -98,11 +104,7 @@ var Tradier = function () {
   }, {
     key: 'optionstrikes',
     value: function optionstrikes(ticker, expiration) {
-      return _axios2.default.get(this._host + 'markets/options/strikes?symbol=' + ticker + '&expiration=' + expiration, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/options/strikes?symbol=' + ticker + '&expiration=' + expiration).then(function (response) {
         var strikes = response.data.strikes;
 
         return new Promise(function (resolve, reject) {
@@ -120,11 +122,7 @@ var Tradier = function () {
   }, {
     key: 'optionexpirations',
     value: function optionexpirations(ticker) {
-      return _axios2.default.get(this._host + 'markets/options/expirations?symbol=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/options/expirations?symbol=' + ticker).then(function (response) {
         var expirations = response.data.expirations;
 
         return new Promise(function (resolve, reject) {
@@ -142,11 +140,7 @@ var Tradier = function () {
   }, {
     key: 'historical',
     value: function historical(ticker) {
-      return _axios2.default.get(this._host + 'markets/history?symbol=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/history?symbol=' + ticker).then(function (response) {
         var history = response.data.history;
 
         return new Promise(function (resolve, reject) {
@@ -164,11 +158,7 @@ var Tradier = function () {
   }, {
     key: 'intradaystatus',
     value: function intradaystatus() {
-      return _axios2.default.get(this._host + 'markets/clock', {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/clock').then(function (response) {
         var data = response.data;
 
         return new Promise(function (resolve, reject) {
@@ -186,11 +176,7 @@ var Tradier = function () {
   }, {
     key: 'marketcalendar',
     value: function marketcalendar() {
-      return _axios2.default.get(this._host + 'markets/calendar', {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/calendar').then(function (response) {
         var data = response.data;
 
         return new Promise(function (resolve, reject) {
@@ -208,11 +194,7 @@ var Tradier = function () {
   }, {
     key: 'companysearch',
     value: function companysearch(ticker) {
-      return _axios2.default.get(this._host + 'markets/search?q=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/search?q=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -230,11 +212,8 @@ var Tradier = function () {
   }, {
     key: 'getCompanyInfo',
     value: function getCompanyInfo(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/company?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      // we use a separate axios, as we need the beta endpoint
+      return this._axiosBeta.get('markets/fundamentals/company?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -252,11 +231,7 @@ var Tradier = function () {
   }, {
     key: 'getCorporateCalendar',
     value: function getCorporateCalendar(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/calendars?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/calendars?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -274,11 +249,7 @@ var Tradier = function () {
   }, {
     key: 'getDividendInfo',
     value: function getDividendInfo(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/dividends?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/dividends?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -296,11 +267,7 @@ var Tradier = function () {
   }, {
     key: 'getCorporateActions',
     value: function getCorporateActions(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/corporate_actions?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/corporate_actions?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -318,11 +285,7 @@ var Tradier = function () {
   }, {
     key: 'getRatios',
     value: function getRatios(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/ratios?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/ratios?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -340,11 +303,7 @@ var Tradier = function () {
   }, {
     key: 'getCorporateFinancials',
     value: function getCorporateFinancials(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/financials?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/financials?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -362,11 +321,7 @@ var Tradier = function () {
   }, {
     key: 'getPriceStats',
     value: function getPriceStats(ticker) {
-      return _axios2.default.get(this._hostBeta + 'markets/fundamentals/statistics?symbols=' + ticker, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axiosBeta.get('markets/fundamentals/statistics?symbols=' + ticker).then(function (response) {
         var data = response.data.data;
 
         return new Promise(function (resolve, reject) {
@@ -409,11 +364,7 @@ var Tradier = function () {
       var query = filteredQuery.filter(function (q) {
         return q !== null;
       }).join('&');
-      return _axios2.default.get(this._host + 'markets/lookup?' + query, {
-        headers: {
-          "Authorization": 'Bearer ' + this.accesstoken
-        }
-      }).then(function (response) {
+      return this._axios.get('markets/lookup?' + query).then(function (response) {
         var data = response.data;
 
         return new Promise(function (resolve, reject) {
