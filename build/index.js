@@ -6,6 +6,14 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _queryString = require('query-string');
+
+var _queryString2 = _interopRequireDefault(_queryString);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -140,7 +148,15 @@ var Tradier = function () {
   }, {
     key: 'historical',
     value: function historical(ticker) {
-      return this._axios.get('markets/history?symbol=' + ticker).then(function (response) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+
+      opts.symbol = ticker;
+      opts.interval = opts.interval | 'daily';
+      opts.start = opts.start | (0, _moment2.default)(opts.start).format('YYYY-MM-DD');
+      opts.end = opts.end | (0, _moment2.default)(opts.end).format('YYYY-MM-DD');
+
+      return this._axios.get('markets/history?' + _queryString2.default.stringify(opts)).then(function (response) {
         var history = response.data.history;
 
         return new Promise(function (resolve, reject) {

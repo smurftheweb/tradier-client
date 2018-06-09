@@ -149,10 +149,27 @@ describe('Tradier', () => {
     let historical;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
+      tradier._axios.get = sinon.spy(() => Promise.resolve({ data: {} }));
       historical = tradier.historical;
     });
     it('is a function', () => {
-      assert.isFunction(historical)
+      assert.isFunction(historical);
+    });
+    it('fetch with symbol', () => {
+      tradier.historical('MSFT');
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/history?symbol=MSFT`);
+    });
+    it('fetch with interval', () => {
+      tradier.historical('MSFT', { interval: 'weekly' });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/history?symbol=MSFT&interval=weekly`);
+    });
+    it('fetch with dates', () => {
+      tradier.historical('MSFT', { start: '2010-01-01', end: '2010-01-31' });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/history?symbol=MSFT&start=2010-01-01&end=2010-01-31`);
+    });
+    it('fetch with interval and dates', () => {
+      tradier.historical('MSFT', { interval: 'weekly', start: '2010-01-01', end: '2010-01-31' });
+      expect(tradier._axios.get).to.have.been.calledWith(`markets/history?symbol=MSFT&interval=weekly&start=2010-01-01&end=2010-01-31`);
     });
   });
 

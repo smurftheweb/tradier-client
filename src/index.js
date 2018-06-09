@@ -1,4 +1,6 @@
 import axios from 'axios';
+import moment from 'moment';
+import queryString from 'query-string';
 
 class Tradier {
   constructor(accesstoken, _endpoint = '') {
@@ -123,8 +125,15 @@ class Tradier {
       });
   }
 
-  historical(ticker) {
-    return this._axios.get(`markets/history?symbol=${ticker}`)
+  historical(ticker, opts = {}) {
+
+    opts.symbol = opts.symbol || ticker;
+    if (opts.start)
+      opts.start = moment(opts.start).format('YYYY-MM-DD');
+    if (opts.end)
+      opts.end = moment(opts.end).format('YYYY-MM-DD');
+
+    return this._axios.get(`markets/history?${queryString.stringify(opts)}`)
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {
