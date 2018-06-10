@@ -133,7 +133,7 @@ class Tradier {
     if (opts.end)
       opts.end = moment(opts.end).format('YYYY-MM-DD');
 
-    return this._axios.get(`markets/history?${queryString.stringify(opts)}`)
+    return this._axios.get('markets/history', { params: opts })
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {

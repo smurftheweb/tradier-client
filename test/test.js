@@ -3,6 +3,7 @@ import Tradier from '../src/index';
 import axios from 'axios';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+//import MockAdapter from 'axios-mock-adapter';
 
 chai.use(sinonChai);
 
@@ -147,17 +148,31 @@ describe('Tradier', () => {
   describe('#historical()', () => {
     let tradier;
     let historical;
+
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
+      // let mock = new MockAdapter(tradier._axios);
+      // mock.onGet('markets/history').reply(200, {
+      //   history: [{
+      //     day: {
+      //       date: '2010-01-01',
+      //       open: 123.0,
+      //       close: 456.0,
+      //       high: 456.0,
+      //       low: 123.0,
+      //       volume: 123456
+      //     }
+      //   }]
+      // });
       tradier._axios.get = sinon.spy(() => Promise.resolve({ data: {} }));
-      historical = tradier.historical;
     });
     it('is a function', () => {
-      assert.isFunction(historical);
+      assert.isFunction(tradier.historical);
     });
     it('fetch with symbol', () => {
       tradier.historical('MSFT');
-      expect(tradier._axios.get).to.have.been.calledWith(`markets/history?symbol=MSFT`);
+      expect(tradier._axios.get).to.have.been.calledWith('markets/history');
+      //expect(tradier._axios.get).to.have.been.calledWithMatch(params: { symbol: "MSFT" });
     });
     it('fetch with interval', () => {
       tradier.historical('MSFT', { interval: 'weekly' });
