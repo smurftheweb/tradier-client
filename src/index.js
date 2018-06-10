@@ -1,6 +1,5 @@
 import axios from 'axios';
 import moment from 'moment';
-import queryString from 'query-string';
 
 class Tradier {
   constructor(accesstoken, _endpoint = '') {

@@ -151,12 +151,11 @@ var Tradier = function () {
       var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 
-      opts.symbol = ticker;
-      opts.interval = opts.interval | 'daily';
-      opts.start = opts.start | (0, _moment2.default)(opts.start).format('YYYY-MM-DD');
-      opts.end = opts.end | (0, _moment2.default)(opts.end).format('YYYY-MM-DD');
+      opts.symbol = opts.symbol || ticker;
+      if (opts.start) opts.start = (0, _moment2.default)(opts.start).format('YYYY-MM-DD');
+      if (opts.end) opts.end = (0, _moment2.default)(opts.end).format('YYYY-MM-DD');
 
-      return this._axios.get('markets/history?' + _queryString2.default.stringify(opts)).then(function (response) {
+      return this._axios.get('markets/history', { params: opts }).then(function (response) {
         var history = response.data.history;
 
         return new Promise(function (resolve, reject) {
