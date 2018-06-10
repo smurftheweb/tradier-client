@@ -40,7 +40,7 @@ class Tradier {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {
           if (quotes) {
-            resolve(quotes)
+            resolve(quotes);
           } else {
             let error = new Error();
             reject(error);
@@ -58,7 +58,7 @@ class Tradier {
         const { series } = response.data;
         return new Promise((resolve, reject) => {
           if (series) {
-            resolve(series)
+            resolve(series);
           } else {
             let error = new Error();
             reject(error);
@@ -76,7 +76,7 @@ class Tradier {
         const { options } = response.data;
         return new Promise((resolve, reject) => {
           if (options) {
-            resolve(options)
+            resolve(options);
           } else {
             let error = new Error();
             reject(error);
@@ -94,7 +94,7 @@ class Tradier {
         const { strikes } = response.data;
         return new Promise((resolve, reject) => {
           if (strikes) {
-            resolve(strikes)
+            resolve(strikes);
           } else {
             let error = new Error();
             reject(error);
@@ -112,7 +112,7 @@ class Tradier {
         const { expirations } = response.data;
         return new Promise((resolve, reject) => {
           if (expirations) {
-            resolve(expirations)
+            resolve(expirations);
           } else {
             let error = new Error();
             reject(error);
@@ -156,7 +156,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -174,7 +174,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -192,7 +192,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -211,7 +211,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -229,7 +229,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -247,7 +247,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -265,7 +265,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -283,7 +283,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -301,7 +301,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -319,7 +319,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -358,7 +358,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);

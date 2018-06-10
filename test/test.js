@@ -107,8 +107,8 @@ describe('Tradier', () => {
       timesales = tradier.timesales;
     });
     it('is a function', () => {
-      assert.isFunction(timesales)
-    })
+      assert.isFunction(timesales);
+    });
   });
 
   describe('#optionchain()', () => {
@@ -119,8 +119,8 @@ describe('Tradier', () => {
       optionchain = tradier.optionchain;
     });
     it('is a function', () => {
-      assert.isFunction(optionchain)
-    })
+      assert.isFunction(optionchain);
+    });
   });
 
   describe('#optionstrikes()', () => {
@@ -131,8 +131,8 @@ describe('Tradier', () => {
       optionstrikes = tradier.optionstrikes;
     });
     it('is a function', () => {
-      assert.isFunction(optionstrikes)
-    })
+      assert.isFunction(optionstrikes);
+    });
   });
 
   describe('#optionexpirations()', () => {
@@ -143,8 +143,8 @@ describe('Tradier', () => {
       optionexpirations = tradier.optionexpirations;
     });
     it('is a function', () => {
-      assert.isFunction(optionexpirations)
-    })
+      assert.isFunction(optionexpirations);
+    });
   });
 
   describe('#historical()', () => {
@@ -187,8 +187,8 @@ describe('Tradier', () => {
       intradaystatus = tradier.intradaystatus;
     });
     it('is a function', () => {
-      assert.isFunction(intradaystatus)
-    })
+      assert.isFunction(intradaystatus);
+    });
   });
 
   describe('#marketcalendar()', () => {
@@ -199,8 +199,8 @@ describe('Tradier', () => {
       marketcalendar = tradier.marketcalendar;
     });
     it('is a function', () => {
-      assert.isFunction(marketcalendar)
-    })
+      assert.isFunction(marketcalendar);
+    });
   });
 
   describe('#companysearch()', () => {
@@ -211,8 +211,8 @@ describe('Tradier', () => {
       companysearch = tradier.companysearch;
     });
     it('is a function', () => {
-      assert.isFunction(companysearch)
-    })
+      assert.isFunction(companysearch);
+    });
   });
 
   describe('#getCompanyInfo()', () => {
@@ -223,8 +223,8 @@ describe('Tradier', () => {
       getCompanyInfo = tradier.getCompanyInfo;
     });
     it('is a function', () => {
-      assert.isFunction(getCompanyInfo)
-    })
+      assert.isFunction(getCompanyInfo);
+    });
   });
 
   describe('#getCorporateCalendar()', () => {
@@ -235,8 +235,8 @@ describe('Tradier', () => {
       getCorporateCalendar = tradier.getCorporateCalendar;
     });
     it('is a function', () => {
-      assert.isFunction(getCorporateCalendar)
-    })
+      assert.isFunction(getCorporateCalendar);
+    });
   });
 
   describe('#getDividendInfo()', () => {
@@ -247,8 +247,8 @@ describe('Tradier', () => {
       getDividendInfo = tradier.getDividendInfo;
     });
     it('is a function', () => {
-      assert.isFunction(getDividendInfo)
-    })
+      assert.isFunction(getDividendInfo);
+    });
   });
 
   describe('#getCorporateActions()', () => {
@@ -259,8 +259,8 @@ describe('Tradier', () => {
       getCorporateActions = tradier.getCorporateActions;
     });
     it('is a function', () => {
-      assert.isFunction(getCorporateActions)
-    })
+      assert.isFunction(getCorporateActions);
+    });
   });
 
   describe('#getRatios()', () => {
@@ -271,8 +271,8 @@ describe('Tradier', () => {
       getRatios = tradier.getRatios;
     });
     it('is a function', () => {
-      assert.isFunction(getRatios)
-    })
+      assert.isFunction(getRatios);
+    });
   });
 
   describe('#getCorporateFinancials()', () => {
@@ -283,8 +283,8 @@ describe('Tradier', () => {
       getCorporateFinancials = tradier.getCorporateFinancials;
     });
     it('is a function', () => {
-      assert.isFunction(getCorporateFinancials)
-    })
+      assert.isFunction(getCorporateFinancials);
+    });
   });
 
   describe('#getPriceStats()', () => {
@@ -295,8 +295,8 @@ describe('Tradier', () => {
       getPriceStats = tradier.getPriceStats;
     });
     it('is a function', () => {
-      assert.isFunction(getPriceStats)
-    })
+      assert.isFunction(getPriceStats);
+    });
   });
 
   describe('#_throw()', () => {
@@ -307,8 +307,8 @@ describe('Tradier', () => {
       _throw = tradier._throw;
     });
     it('is a function', () => {
-      assert.isFunction(_throw)
-    })
+      assert.isFunction(_throw);
+    });
   });
 
   describe('#lookup()', () => {
