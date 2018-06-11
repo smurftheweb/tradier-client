@@ -51,6 +51,18 @@ class Tradier {
       });
   }
 
+  /**
+   * Get time and sales for a given symbol.
+   * Required:
+   * @param {string} ticker The requested symbol
+   * Optional: 
+   * @param {string} interval The interval of time from timesales pricing. One of tick, 1min, 5min, 15min (default: tick)
+   * @param {datetime} start Start datetime for timesales range represented as YYYY-MM-DD HH:MM
+   * @param {datetime} end End datetime for timesales range represented as YYYY-MM-DD HH:MM
+   * @param {string} session_filter The session conditions to requested data for. 
+   *                                'all' for all available data points (default)
+   *                                'open' for data points within open market hours only
+  */
   timesales(ticker) {
     return this._axios.get('markets/timesales', { params: { symbols: ticker } })
       .then(response => {
