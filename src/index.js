@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import moment from 'moment';
 class Tradier {
   constructor(accesstoken, _endpoint = '') {
     this.accesstoken = accesstoken;
@@ -62,9 +62,15 @@ class Tradier {
    * @param {string} session_filter The session conditions to requested data for. 
    *                                'all' for all available data points (default)
    *                                'open' for data points within open market hours only
-  */
-  timesales(ticker) {
-    return this._axios.get('markets/timesales', { params: { symbols: ticker } })
+   */
+  timesales(ticker, opts = {}) {
+    let params = { symbols: opts.symbols || ticker };
+    if (opts.interval) params.interval = opts.interval;
+    if (opts.start) params.start = moment(opts.start).format('YYYY-MM-DD HH:mm');
+    if (opts.end) params.end = moment(opts.end).format('YYYY-MM-DD HH:mm');
+    if (opts.session_filter) params.session_filter = opts.session_filter;
+
+    return this._axios.get('markets/timesales', { params: params })
       .then(response => {
         const { series } = response.data;
         return new Promise((resolve, reject) => {
