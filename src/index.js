@@ -34,7 +34,7 @@ class Tradier {
   }
 
   quote(ticker) {
-    return this._axios.get(`markets/quotes?symbols=${ticker}`)
+    return this._axios.get('markets/quotes', { params: { symbols: ticker } })
       .then(response => {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ class Tradier {
   }
 
   timesales(ticker) {
-    return this._axios.get(`markets/timesales?symbol=${ticker}`)
+    return this._axios.get('markets/timesales', { params: { symbols: ticker } })
       .then(response => {
         const { series } = response.data;
         return new Promise((resolve, reject) => {
@@ -70,7 +70,7 @@ class Tradier {
   }
 
   optionchain(ticker, expiration) {
-    return this._axios.get(`markets/options/chains?symbol=${ticker}&expiration=${expiration}`)
+    return this._axios.get('markets/options/chains', { params: { symbol: ticker, expiration: expiration } })
       .then(response => {
         const { options } = response.data;
         return new Promise((resolve, reject) => {
@@ -88,7 +88,7 @@ class Tradier {
   }
 
   optionstrikes(ticker, expiration) {
-    return this._axios.get(`markets/options/strikes?symbol=${ticker}&expiration=${expiration}`)
+    return this._axios.get('markets/options/strikes', { params: { symbol: ticker, expiration: expiration } })
       .then(response => {
         const { strikes } = response.data;
         return new Promise((resolve, reject) => {
@@ -106,7 +106,7 @@ class Tradier {
   }
 
   optionexpirations(ticker) {
-    return this._axios.get(`markets/options/expirations?symbol=${ticker}`)
+    return this._axios.get('markets/options/expirations', { params: { symbols: ticker } })
       .then(response => {
         const { expirations } = response.data;
         return new Promise((resolve, reject) => {
@@ -124,7 +124,7 @@ class Tradier {
   }
 
   historical(ticker) {
-    return this._axios.get(`markets/history?symbol=${ticker}`)
+    return this._axios.get('markets/history', { params: { symbols: ticker } })
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {
@@ -142,7 +142,7 @@ class Tradier {
   }
 
   intradaystatus() {
-    return this._axios.get(`markets/clock`)
+    return this._axios.get('markets/clock')
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
@@ -160,7 +160,7 @@ class Tradier {
   }
 
   marketcalendar() {
-    return this._axios.get(`markets/calendar`)
+    return this._axios.get('markets/calendar')
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
@@ -178,7 +178,7 @@ class Tradier {
   }
 
   companysearch(ticker) {
-    return this._axios.get(`markets/search?q=${ticker}`)
+    return this._axios.get('markets/search', { params: { q: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -197,7 +197,7 @@ class Tradier {
 
   getCompanyInfo(ticker) {
     // we use a separate axios, as we need the beta endpoint
-    return this._axiosBeta.get(`markets/fundamentals/company?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/company', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -215,7 +215,7 @@ class Tradier {
   }
 
   getCorporateCalendar(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/calendars?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/calendars', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -233,7 +233,7 @@ class Tradier {
   }
 
   getDividendInfo(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/dividends?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/dividends', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -251,7 +251,7 @@ class Tradier {
   }
 
   getCorporateActions(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/corporate_actions?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/corporate_actions', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -269,7 +269,7 @@ class Tradier {
   }
 
   getRatios(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/ratios?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/ratios', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -287,7 +287,7 @@ class Tradier {
   }
 
   getCorporateFinancials(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/financials?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/financials', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
@@ -305,7 +305,7 @@ class Tradier {
   }
 
   getPriceStats(ticker) {
-    return this._axiosBeta.get(`markets/fundamentals/statistics?symbols=${ticker}`)
+    return this._axiosBeta.get('markets/fundamentals/statistics', { params: { symbols: ticker } })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
