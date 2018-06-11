@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class Tradier {
-  constructor(accesstoken, _endpoint='') {
+  constructor(accesstoken, _endpoint = '') {
     this.accesstoken = accesstoken;
     this._endpoint = _endpoint.toLowerCase();
     this._host = 'https://api.tradier.com/v1/';
@@ -25,7 +25,7 @@ class Tradier {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {
           if (quotes) {
-            resolve(quotes)
+            resolve(quotes);
           } else {
             let error = new Error();
             reject(error);
@@ -37,7 +37,7 @@ class Tradier {
       });
   }
 
-  timesales(ticker) { 
+  timesales(ticker) {
     return axios.get(`${this._host}markets/timesales?symbol=${ticker}`, { 
       headers: {
         "Authorization": `Bearer ${this.accesstoken}` 
@@ -47,7 +47,7 @@ class Tradier {
         const { series } = response.data;
         return new Promise((resolve, reject) => {
           if (series) {
-            resolve(series)
+            resolve(series);
           } else {
             let error = new Error();
             reject(error);
@@ -59,7 +59,7 @@ class Tradier {
       });
   }
 
-  optionchain(ticker, expiration) { 
+  optionchain(ticker, expiration) {
     return axios.get(`${this._host}markets/options/chains?symbol=${ticker}&expiration=${expiration} `, { 
       headers: {
         "Authorization": `Bearer ${this.accesstoken}` 
@@ -69,7 +69,7 @@ class Tradier {
         const { options } = response.data;
         return new Promise((resolve, reject) => {
           if (options) {
-            resolve(options)
+            resolve(options);
           } else {
             let error = new Error();
             reject(error);
@@ -81,7 +81,7 @@ class Tradier {
       });
   }
 
-  optionstrikes(ticker, expiration) { 
+  optionstrikes(ticker, expiration) {
     return axios.get(`${this._host}markets/options/strikes?symbol=${ticker}&expiration=${expiration}`, { 
       headers: {
         "Authorization": `Bearer ${this.accesstoken}` 
@@ -91,7 +91,7 @@ class Tradier {
         const { strikes } = response.data;
         return new Promise((resolve, reject) => {
           if (strikes) {
-            resolve(strikes)
+            resolve(strikes);
           } else {
             let error = new Error();
             reject(error);
@@ -103,7 +103,7 @@ class Tradier {
       });
   }
 
-  optionexpirations(ticker) { 
+  optionexpirations(ticker) {
     return axios.get(`${this._host}markets/options/expirations?symbol=${ticker}`, { 
       headers: {
         "Authorization": `Bearer ${this.accesstoken}` 
@@ -113,7 +113,7 @@ class Tradier {
         const { expirations } = response.data;
         return new Promise((resolve, reject) => {
           if (expirations) {
-            resolve(expirations)
+            resolve(expirations);
           } else {
             let error = new Error();
             reject(error);
@@ -125,7 +125,7 @@ class Tradier {
       });
   }
 
-  historical(ticker) { 
+  historical(ticker) {
     return axios.get(`${this._host}markets/history?symbol=${ticker}`, { 
       headers: {
         "Authorization": `Bearer ${this.accesstoken}` 
@@ -135,7 +135,7 @@ class Tradier {
         const { history } = response.data;
         return new Promise((resolve, reject) => {
           if (history) {
-            resolve(history)
+            resolve(history);
           } else {
             let error = new Error();
             reject(error);
@@ -157,7 +157,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -179,7 +179,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -201,7 +201,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -223,7 +223,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -245,7 +245,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -267,7 +267,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -289,7 +289,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -311,7 +311,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -333,7 +333,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -355,7 +355,7 @@ class Tradier {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
@@ -382,13 +382,13 @@ class Tradier {
       exchanges: [],
       types: [],
     }, queryParams);
-    const {q, exchanges, types} = params;
+    const { q, exchanges, types } = params;
     const filteredQuery = [
       q !== null && `q=${q}` || null,
       exchanges.length !== 0 && `exchanges=${exchanges.join(',')}` || null,
       types.length !== 0 && `types=${types.join(',')}` || null,
     ];
-    const query = filteredQuery.filter( q => q !== null).join('&');
+    const query = filteredQuery.filter(q => q !== null).join('&');
     return axios.get(`${this._host}markets/lookup?${query}`, {
       headers: {
         "Authorization": `Bearer ${this.accesstoken}`
@@ -398,7 +398,7 @@ class Tradier {
         const { data } = response;
         return new Promise((resolve, reject) => {
           if (data) {
-            resolve(data)
+            resolve(data);
           } else {
             let error = new Error();
             reject(error);
