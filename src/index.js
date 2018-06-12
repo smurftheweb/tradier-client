@@ -19,7 +19,8 @@ class Tradier {
       baseURL: this._host,
       timeout: 1000,
       headers: {
-        "Authorization": `Bearer ${this.accesstoken}`
+        "Authorization": `Bearer ${this.accesstoken}`,
+        "Accept": "application/json"
       }
     });
 
@@ -28,7 +29,8 @@ class Tradier {
       baseURL: this._hostBeta,
       timeout: 1000,
       headers: {
-        "Authorization": `Bearer ${this.accesstoken}`
+        "Authorization": `Bearer ${this.accesstoken}`,
+        "Accept": "application/json"
       }
     });
   }
@@ -239,8 +241,17 @@ class Tradier {
       });
   }
 
-  companysearch(ticker) {
-    return this._axios.get('markets/search', { params: { q: ticker } })
+  /**
+   * You can search for a stock symbol using a keyword lookup on the symbols description. Results are ordered by average volume of the symbol.
+   * Required:
+   * @param {string} q A search keyword
+   * Optional:
+   * @param {boolean} indexes Include indexes in the results
+   */
+  companysearch(q, indexes = false) {
+    let params = { q: q };
+    if (indexes) params.indexes = true;
+    return this._axios.get('markets/search', { params: params })
       .then(response => {
         const { data } = response.data;
         return new Promise((resolve, reject) => {
