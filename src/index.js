@@ -92,6 +92,12 @@ class Tradier {
       });
   }
 
+  /**
+   * Get an option chain.
+   * Required:
+   * @param {string} ticker The requested symbol
+   * @param {datetime} expiration The expiration date to obtain strikes for, respresented as YYYY-MM-DD.
+   */
   optionchain(ticker, expiration) {
     let params = { symbol: ticker, expiration: moment(expiration).format('YYYY-MM-DD') };
     return this._axios.get('markets/options/chains', { params: params })
@@ -135,6 +141,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get an option's expiration dates.
+   * Required:
+   * @param {string} ticker The requested symbol
+   */
   optionexpirations(ticker) {
     return this._axios.get('markets/options/expirations', { params: { symbols: ticker } })
       .then(response => {
@@ -153,6 +164,15 @@ class Tradier {
       });
   }
 
+  /**
+   * Get the historical pricing for a symbol.
+   * Required:
+   * @param {string} ticker The requested symbol
+   * Optional:
+   * @param {string} interval The interval of time for historical pricing, one of daily, weekly or monthly (default: daily)
+   * @param {datetime} start Start datetime for timesales range represented as YYYY-MM-DD
+   * @param {datetime} end End datetime for timesales range represented as YYYY-MM-DD
+   */
   historical(ticker) {
     return this._axios.get('markets/history', { params: { symbols: ticker } })
       .then(response => {
@@ -171,6 +191,9 @@ class Tradier {
       });
   }
 
+  /**
+   * Get the intraday market status. This call will change and return information pertaining to the current day.
+   */
   intradaystatus() {
     return this._axios.get('markets/clock')
       .then(response => {
@@ -189,8 +212,17 @@ class Tradier {
       });
   }
 
-  marketcalendar() {
-    return this._axios.get('markets/calendar')
+  /**
+   * Get the market calendar for a given month.
+   * Optional:
+   * @param {int} month Month of the calendar requested.
+   * @param {int} year Year of the calendar requested.
+   */
+  marketcalendar(month = null, year = null) {
+    let params = {};
+    if (month && !isNaN(month)) params.month = month;
+    if (year && !isNaN(year)) params.year = year;
+    return this._axios.get('markets/calendar', { params: params })
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
