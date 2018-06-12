@@ -268,6 +268,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get company fundamental information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getCompanyInfo(ticker) {
     // we use a separate axios, as we need the beta endpoint
     return this._axiosBeta.get('markets/fundamentals/company', { params: { symbols: ticker } })
@@ -287,6 +292,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get the corporate calendar information for a symbol
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getCorporateCalendar(ticker) {
     return this._axiosBeta.get('markets/fundamentals/calendars', { params: { symbols: ticker } })
       .then(response => {
@@ -305,6 +315,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get company dividend information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getDividendInfo(ticker) {
     return this._axiosBeta.get('markets/fundamentals/dividends', { params: { symbols: ticker } })
       .then(response => {
@@ -323,6 +338,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get corporate actions information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getCorporateActions(ticker) {
     return this._axiosBeta.get('markets/fundamentals/corporate_actions', { params: { symbols: ticker } })
       .then(response => {
@@ -341,6 +361,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get operation ratio information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getRatios(ticker) {
     return this._axiosBeta.get('markets/fundamentals/ratios', { params: { symbols: ticker } })
       .then(response => {
@@ -359,6 +384,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get corporate financials information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */  
   getCorporateFinancials(ticker) {
     return this._axiosBeta.get('markets/fundamentals/financials', { params: { symbols: ticker } })
       .then(response => {
@@ -377,6 +407,11 @@ class Tradier {
       });
   }
 
+  /**
+   * Get price statistics information
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   getPriceStats(ticker) {
     return this._axiosBeta.get('markets/fundamentals/statistics', { params: { symbols: ticker } })
       .then(response => {
@@ -403,6 +438,14 @@ class Tradier {
     }
   }
 
+  /**
+   * Lookup a symbol or partial symbol. Results are ordered by average volume of the symbol.
+   * Inputs can be
+   * - q: A symbol or partial symbol to look up
+   * - exchanges: A comma-delimited list of exchange codes to query (i.e. Q,N)
+   * - types: A comma-delimited list of security types to query (i.e. stock,etf)
+   * @param {*} queryParams 
+   */
   lookup(queryParams = {}) {
     //TODO: use module for building query
     const params = Object.assign({
