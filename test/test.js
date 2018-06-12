@@ -327,33 +327,32 @@ describe('Tradier', () => {
     let _spy;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
-      _spy = new sinon.spy(tradier._axios, "get"); //() => Promise.resolve({ data: {} }));
+      _spy = new sinon.spy(tradier._axios, "get");
     });
-    //afterEach(() => { axios.get.restore(); });
+    afterEach(() => { _spy.restore(); });
     it('is a function', () => {
       assert.isFunction(tradier.lookup);
     });
     it('fetch with q', () => {
       tradier.lookup({ q: 'MSFT' });
-      //console.dir(_spy);
-      //expect(axios.get).to.have.been.calledWith(sinon.match.has("q", "MSFT"));
+      expect(_spy).to.have.been.calledWith('markets/lookup', { params: { q: "MSFT" } });
     });
-    // it('fetch with exchanges', () => {
-    //   tradier.lookup({ exchanges: ['N', 'V'] });
-    //   expect(_spy).to.have.been.calledWith('markets/lookup?exchanges=N,V');
-    // });
-    // it('fetch with types', () => {
-    //   tradier.lookup({ types: ['stock', 'etf'] });
-    //   expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?types=stock,etf`);
-    // });
-    // it('fetch with q, exchanges and types', () => {
-    //   tradier.lookup({
-    //     types: ['stock', 'etf'],
-    //     q: 'MSFT',
-    //     exchanges: ['N', 'V']
-    //   });
-    //   expect(axios.get).to.have.been.calledWith(`${tradier._host}markets/lookup?q=MSFT&exchanges=N,V&types=stock,etf`);
-    // });
+    it('fetch with exchanges', () => {
+      tradier.lookup({ exchanges: ['N', 'V'] });
+      expect(_spy).to.have.been.calledWith('markets/lookup', { params: { exchanges: "N,V" } });
+    });
+    it('fetch with types', () => {
+      tradier.lookup({ types: ['stock', 'etf'] });
+      expect(_spy).to.have.been.calledWith('markets/lookup', { params: { types: "stock,etf" } });
+    });
+    it('fetch with q, exchanges and types', () => {
+      tradier.lookup({
+        types: ['stock', 'etf'],
+        q: 'MSFT',
+        exchanges: ['N', 'V']
+      });
+      expect(_spy).to.have.been.calledWith('markets/lookup', { params: { q: "MSFT", exchanges: "N,V", types: "stock,etf" } });
+    });
   });
 
 });

@@ -447,20 +447,27 @@ class Tradier {
    * @param {*} queryParams 
    */
   lookup(queryParams = {}) {
-    //TODO: use module for building query
-    const params = Object.assign({
-      q: null,
-      exchanges: [],
-      types: [],
-    }, queryParams);
-    const { q, exchanges, types } = params;
-    const filteredQuery = [
-      q !== null && `q=${q}` || null,
-      exchanges.length !== 0 && `exchanges=${exchanges.join(',')}` || null,
-      types.length !== 0 && `types=${types.join(',')}` || null,
-    ];
-    const query = filteredQuery.filter(q => q !== null).join('&');
-    return this._axios.get(`markets/lookup?${query}`)
+
+    let parameterFound = false;
+    let params = { };
+
+    if (queryParams.q) {
+      params.q = queryParams.q;
+      parameterFound = true;
+    }
+    if (queryParams.exchanges && queryParams.exchanges.length !== 0) {
+      params.exchanges = queryParams.exchanges.join(',');
+      parameterFound = true;
+    }
+    if (queryParams.types && queryParams.types.length !== 0)  {
+      params.types = queryParams.types.join(',');
+      parameterFound = true;
+    }
+
+    if (!parameterFound)
+      _throw('No valid parameter specified');
+
+    return this._axios.get('markets/lookup', { params: params })
       .then(response => {
         const { data } = response;
         return new Promise((resolve, reject) => {
