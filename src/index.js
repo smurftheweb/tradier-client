@@ -33,6 +33,11 @@ class Tradier {
     });
   }
 
+  /**
+   * Get quotes for an individual or multiple symbols.
+   * Required:
+   * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
+   */
   quote(ticker) {
     return this._axios.get('markets/quotes', { params: { symbols: ticker } })
       .then(response => {
@@ -106,6 +111,12 @@ class Tradier {
       });
   }
 
+  /**
+   * Get an option's strike prices.
+   * Required:
+   * @param {string} ticker The requested symbol
+   * @param {datetime} expiration The expiration date to obtain strikes for, respresented as YYYY-MM-DD.
+   */
   optionstrikes(ticker, expiration) {
     return this._axios.get('markets/options/strikes', { params: { symbol: ticker, expiration: expiration } })
       .then(response => {
