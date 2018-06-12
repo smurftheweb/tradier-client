@@ -87,15 +87,21 @@ describe('Tradier', () => {
 
   describe('#quote()', () => {
     let tradier;
-    let quote;
+    let _spy;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
-      quote = tradier.quote;
+      _spy = new sinon.spy(tradier._axios, "get");
     });
+    afterEach(() => { _spy.restore(); });
     it('is a function', () => {
-      assert.isFunction(quote);
+      assert.isFunction(tradier.quote);
     });
+    it('normal call', () => {
+      tradier.quote('spy');
+      expect(_spy).has.been.calledWith('markets/quotes', { params: { symbols: 'spy' } });
   });
+  });
+
   describe('#timesales()', () => {
     let tradier;
     let _spy;
