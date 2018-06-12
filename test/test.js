@@ -99,7 +99,7 @@ describe('Tradier', () => {
     it('normal call', () => {
       tradier.quote('spy');
       expect(_spy).has.been.calledWith('markets/quotes', { params: { symbols: 'spy' } });
-  });
+    });
   });
 
   describe('#timesales()', () => {
@@ -139,13 +139,18 @@ describe('Tradier', () => {
 
   describe('#optionchain()', () => {
     let tradier;
-    let optionchain;
+    let _spy;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
-      optionchain = tradier.optionchain;
+      _spy = new sinon.spy(tradier._axios, "get");
     });
+    afterEach(() => { _spy.restore(); });
     it('is a function', () => {
-      assert.isFunction(optionchain);
+      assert.isFunction(tradier.optionchain);
+    });
+    it('normal call', () => {
+      tradier.optionchain('spy', '2018-01-01');
+      expect(_spy).has.been.calledWith('markets/options/chains', { params: { symbol: 'spy', expiration: '2018-01-01' } });
     });
   });
 

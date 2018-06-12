@@ -88,7 +88,8 @@ class Tradier {
   }
 
   optionchain(ticker, expiration) {
-    return this._axios.get('markets/options/chains', { params: { symbol: ticker, expiration: expiration } })
+    let params = { symbol: ticker, expiration: moment(expiration).format('YYYY-MM-DD') };
+    return this._axios.get('markets/options/chains', { params: params })
       .then(response => {
         const { options } = response.data;
         return new Promise((resolve, reject) => {
