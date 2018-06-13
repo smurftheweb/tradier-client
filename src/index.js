@@ -178,8 +178,12 @@ class Tradier {
    * @param {datetime} start Start datetime for timesales range represented as YYYY-MM-DD
    * @param {datetime} end End datetime for timesales range represented as YYYY-MM-DD
    */
-  historical(ticker) {
-    return this._axios.get('markets/history', { params: { symbol: ticker } })
+  historical(ticker, opts = {}) {
+    let params = { symbol: ticker };
+    if (opts.start) params.start = moment(opts.start).format('YYYY-MM-DD');
+    if (opts.end) params.end = moment(opts.end).format('YYYY-MM-DD');
+    if (opts.interval) params.interval = opts.interval;
+    return this._axios.get('markets/history', { params: params })
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {

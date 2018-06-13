@@ -180,13 +180,36 @@ describe('Tradier', () => {
 
   describe('#historical()', () => {
     let tradier;
-    let historical;
+    let _spy;
     beforeEach(() => {
       tradier = new Tradier(process.env.ACCESS_TOKEN);
-      historical = tradier.historical;
+      _spy = new sinon.spy(tradier._axios, "get");
     });
+    afterEach(() => { _spy.restore(); });
     it('is a function', () => {
-      assert.isFunction(historical);
+      assert.isFunction(tradier.historical);
+    });
+    it('normal call', () => {
+      tradier.historical('spy');
+      expect(_spy).has.been.calledWith('markets/history', { params: { symbol: 'spy' } });
+    });
+    it('with interval', () => {
+      let opts = { interval: 'daily' };
+      tradier.historical('spy', opts);
+      opts.symbol = 'spy';
+      expect(_spy).has.been.calledWith('markets/history', { params: opts });
+    });
+    it('with dates', () => {
+      let opts = { start: '2018-01-01', end: '2018-01-01' };
+      tradier.historical('spy', opts);
+      opts.symbol = 'spy';
+      expect(_spy).has.been.calledWith('markets/history', { params: opts });
+    });
+    it('with interval and dates', () => {
+      let opts = { interval: 'daily', start: '2018-01-01', end: '2018-01-01' };
+      tradier.historical('spy', opts);
+      opts.symbol = 'spy';
+      expect(_spy).has.been.calledWith('markets/history', { params: opts });
     });
   });
 
