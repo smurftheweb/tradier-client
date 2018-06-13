@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
-import queryString from 'query-string';
+import qs from 'qs';
 class Tradier {
   constructor(accesstoken, _endpoint = '') {
     this.accesstoken = accesstoken;
@@ -22,7 +22,8 @@ class Tradier {
       headers: {
         "Authorization": `Bearer ${this.accesstoken}`,
         "Accept": "application/json"
-      }
+      },
+      paramsSerializer: function(params) { return qs.stringify(params, { arrayFormat: 'brackets' }); }
     });
 
     // and one for the beta endpoints
@@ -32,7 +33,8 @@ class Tradier {
       headers: {
         "Authorization": `Bearer ${this.accesstoken}`,
         "Accept": "application/json"
-      }
+      },
+      paramsSerializer: function(params) { return qs.stringify(params, { arrayFormat: 'brackets' }); }
     });
   }
 
@@ -42,8 +44,7 @@ class Tradier {
    * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
    */
   quote(ticker) {
-    let params = queryString.stringify({ symbols: ticker });
-    return this._axios.get(`markets/quotes?${params}`)
+    return this._axios.get('markets/quotes', { params: { symbols: ticker } })
       .then(response => {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {

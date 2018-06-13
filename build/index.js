@@ -10,6 +10,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _qs = require('qs');
+
+var _qs2 = _interopRequireDefault(_qs);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39,6 +43,9 @@ var Tradier = function () {
       headers: {
         "Authorization": 'Bearer ' + this.accesstoken,
         "Accept": "application/json"
+      },
+      paramsSerializer: function paramsSerializer(params) {
+        return _qs2.default.stringify(params, { arrayFormat: 'brackets' });
       }
     });
 
@@ -49,6 +56,9 @@ var Tradier = function () {
       headers: {
         "Authorization": 'Bearer ' + this.accesstoken,
         "Accept": "application/json"
+      },
+      paramsSerializer: function paramsSerializer(params) {
+        return _qs2.default.stringify(params, { arrayFormat: 'brackets' });
       }
     });
   }
@@ -63,7 +73,8 @@ var Tradier = function () {
   _createClass(Tradier, [{
     key: 'quote',
     value: function quote(ticker) {
-      return this._axios.get('markets/quotes', { params: { symbols: ticker } }).then(function (response) {
+      var params = queryString.stringify({ symbols: ticker });
+      return this._axios.get('markets/quotes?' + params).then(function (response) {
         var quotes = response.data.quotes;
 
         return new Promise(function (resolve, reject) {
