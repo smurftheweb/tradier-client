@@ -1,5 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
+import queryString from 'query-string';
 class Tradier {
   constructor(accesstoken, _endpoint = '') {
     this.accesstoken = accesstoken;
@@ -41,7 +42,8 @@ class Tradier {
    * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
    */
   quote(ticker) {
-    return this._axios.get('markets/quotes', { params: { symbols: ticker } })
+    let params = queryString.stringify({ symbols: ticker });
+    return this._axios.get(`markets/quotes?${params}`)
       .then(response => {
         const { quotes } = response.data;
         return new Promise((resolve, reject) => {
@@ -388,7 +390,7 @@ class Tradier {
    * Get corporate financials information
    * Required:
    * @param {string} ticker A comma delimited list of symbols, both equity and option symbols are accepted.
-   */  
+   */
   getCorporateFinancials(ticker) {
     return this._axiosBeta.get('markets/fundamentals/financials', { params: { symbols: ticker } })
       .then(response => {
@@ -449,7 +451,7 @@ class Tradier {
   lookup(queryParams = {}) {
 
     let parameterFound = false;
-    let params = { };
+    let params = {};
 
     if (queryParams.q) {
       params.q = queryParams.q;
@@ -459,7 +461,7 @@ class Tradier {
       params.exchanges = queryParams.exchanges.join(',');
       parameterFound = true;
     }
-    if (queryParams.types && queryParams.types.length !== 0)  {
+    if (queryParams.types && queryParams.types.length !== 0) {
       params.types = queryParams.types.join(',');
       parameterFound = true;
     }

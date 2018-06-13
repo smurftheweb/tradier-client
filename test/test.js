@@ -3,6 +3,7 @@ import Tradier from '../src/index';
 import axios from 'axios';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import queryString from 'query-string';
 
 chai.use(sinonChai);
 
@@ -98,7 +99,8 @@ describe('Tradier', () => {
     });
     it('normal call', () => {
       tradier.quote('spy');
-      expect(_spy).has.been.calledWith('markets/quotes', { params: { symbols: 'spy' } });
+      let expectedParams = queryString.stringify({ symbols: 'spy' });
+      expect(_spy).has.been.calledWith(`markets/quotes?${expectedParams}`);
     });
   });
 
