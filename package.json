@@ -1,5 +1,5 @@
 {
-  "name": "tradier-client",
+  "name": "@smurftheweb/tradier-client",
   "version": "1.0.0",
   "description": "Node API wrapper for the Tradier API",
   "main": "build/index.js",
@@ -19,7 +19,7 @@
     "fintech",
     "market-data"
   ],
-  "author": "Vincent Porta <vporta7@gmail.com> (http://www.vincentjporta.com/)",
+  "author": "Vincent Porta <vporta7@gmail.com> (http://www.vincentjporta.com/) / smurftheweb <smurftheweb@gmail.com>",
   "license": "MIT",
   "babel": {
     "presets": [
