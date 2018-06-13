@@ -179,7 +179,7 @@ class Tradier {
    * @param {datetime} end End datetime for timesales range represented as YYYY-MM-DD
    */
   historical(ticker) {
-    return this._axios.get('markets/history', { params: { symbols: ticker } })
+    return this._axios.get('markets/history', { params: { symbol: ticker } })
       .then(response => {
         const { history } = response.data;
         return new Promise((resolve, reject) => {

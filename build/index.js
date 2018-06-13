@@ -73,8 +73,7 @@ var Tradier = function () {
   _createClass(Tradier, [{
     key: 'quote',
     value: function quote(ticker) {
-      var params = queryString.stringify({ symbols: ticker });
-      return this._axios.get('markets/quotes?' + params).then(function (response) {
+      return this._axios.get('markets/quotes', { params: { symbols: ticker } }).then(function (response) {
         var quotes = response.data.quotes;
 
         return new Promise(function (resolve, reject) {
@@ -221,7 +220,7 @@ var Tradier = function () {
   }, {
     key: 'historical',
     value: function historical(ticker) {
-      return this._axios.get('markets/history', { params: { symbols: ticker } }).then(function (response) {
+      return this._axios.get('markets/history', { params: { symbol: ticker } }).then(function (response) {
         var history = response.data.history;
 
         return new Promise(function (resolve, reject) {

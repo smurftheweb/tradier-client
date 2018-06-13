@@ -9,7 +9,7 @@
     "test": "mocha test/test.js --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "start": "babel-node --presets es2015 src/index.js",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "tradier",
