@@ -1,6 +1,6 @@
 {
   "name": "@smurftheweb/tradier-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node API wrapper for the Tradier API",
   "main": "build/index.js",
   "scripts": {
